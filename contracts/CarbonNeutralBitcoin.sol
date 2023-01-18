@@ -128,6 +128,10 @@ contract CarbonNeutralBitcoin is Initializable, ERC20Upgradeable, ERC20BurnableU
         emit CarbonOffsetMultiplierChanged(_carbonOffsetMultiplier);
     }
 
+    function getCarbonRatioPerBitcoin (uint256 amount) public view returns(uint256 ratio)
+    {
+        ratio = ((amount * carbonOffsetMultiplier)/precisionDecimals);
+    }
     /**
     Evaluates whether a transfer should be allowed or not.
      */
