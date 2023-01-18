@@ -9,7 +9,7 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 import "./Blacklistable.sol";
 
 /**
-* @title GreenWrappedBitcoin
+* @title Carbon Neutral Bitcoin
 * @dev This contract is a ERC20 token that represents a green version of bitcoin.
 * It's minted by transferring an equivalent amount of WBTC and MCO2.
 */
@@ -54,6 +54,7 @@ contract CarbonNeutralBitcoin is Initializable, ERC20Upgradeable, ERC20BurnableU
         __Pausable_init();
         __AccessControl_init();        
         __UUPSUpgradeable_init();
+        __Blacklistable_Init();
 
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(PAUSER_ROLE, msg.sender);        
