@@ -34,7 +34,8 @@ contract CarbonNeutralBitcoin is Initializable, ERC20Upgradeable, ERC20BurnableU
    
     event MCO2changed (address MCO2);
     event WBTCchanged (address WBTC);
-    event CarbonOffsetMultiplierChanged(uint256 carbonOffsetMultiplier);   
+    event CarbonOffsetMultiplierChanged(uint256 carbonOffsetMultiplier);
+    event PrecisionDecimalsChanged(uint256 precisionDecimals); 
    
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
@@ -105,7 +106,7 @@ contract CarbonNeutralBitcoin is Initializable, ERC20Upgradeable, ERC20BurnableU
     * @dev Set the WBTC address
     * @param _WBTC the address of the wrapped asset
     */
-    function setWBTC ( address _WBTC) public onlyRole(DEFAULT_ADMIN_ROLE) {
+    function setWBTC(address _WBTC) public onlyRole(DEFAULT_ADMIN_ROLE) {
         WBTC = _WBTC;
         emit WBTCchanged(_WBTC);
     }
@@ -114,7 +115,7 @@ contract CarbonNeutralBitcoin is Initializable, ERC20Upgradeable, ERC20BurnableU
     * @dev Set the MCO2 address
     * @param _MCO2 the address of the carbon offset token
     */
-    function setMCO2 (address _MCO2) public onlyRole(DEFAULT_ADMIN_ROLE){
+    function setMCO2(address _MCO2) public onlyRole(DEFAULT_ADMIN_ROLE){
         MCO2 = _MCO2;   
         emit MCO2changed(_MCO2);
     }
@@ -123,12 +124,21 @@ contract CarbonNeutralBitcoin is Initializable, ERC20Upgradeable, ERC20BurnableU
     * @dev Set the carbon offset multiplier
     * @param _carbonOffsetMultiplier carbon offset multiplier
     */
-    function SetCarbonOffsetMultiplier (uint256 _carbonOffsetMultiplier) public onlyRole(DEFAULT_ADMIN_ROLE){
+    function SetCarbonOffsetMultiplier(uint256 _carbonOffsetMultiplier) public onlyRole(DEFAULT_ADMIN_ROLE){
         carbonOffsetMultiplier = _carbonOffsetMultiplier;
         emit CarbonOffsetMultiplierChanged(_carbonOffsetMultiplier);
     }
 
-    function getCarbonRatioPerBitcoin (uint256 amount) public view returns(uint256 ratio)
+     /**
+    * @dev Set the carbon offset multiplier
+    * @param _precisionDecimals carbon offset multiplier
+    */
+    function SetPrecisionDecimals(uint256 _precisionDecimals) public onlyRole(DEFAULT_ADMIN_ROLE){
+        precisionDecimals = _precisionDecimals;
+        emit PrecisionDecimalsChanged(_precisionDecimals);
+    }
+
+    function getCarbonRatioPerBitcoin(uint256 amount) public view returns(uint256 ratio)
     {
         ratio = ((amount * carbonOffsetMultiplier)/precisionDecimals);
     }
