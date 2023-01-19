@@ -8,7 +8,7 @@ import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol"
 Keeps track of Blacklists and can check if sender and reciever are configured to allow a transfer.
 Only administrators can update the Blacklists.
  */
-contract Blacklistable is Initializable, AccessControlUpgradeable{
+contract Blacklistable is Initializable, AccessControlUpgradeable, UUPSUpgradeable{
     // Track whether Blacklisting is enabled
     bool public isBlacklistEnabled;
 
@@ -23,6 +23,9 @@ contract Blacklistable is Initializable, AccessControlUpgradeable{
     event BlacklistEnabledUpdated(address indexed updatedBy, bool indexed enabled);
 
     function __Blacklistable_Init ()initializer public {
+        __AccessControl_init();
+        __UUPSUpgradeable_init();
+        
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(BLACKLISTER_ROLE, msg.sender);
     }
