@@ -1,18 +1,18 @@
 pragma solidity ^0.8.9;
 
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
-import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
 
 /**
 Keeps track of Blacklists and can check if sender and reciever are configured to allow a transfer.
 Only administrators can update the Blacklists.
  */
-contract Blacklistable is Initializable, AccessControlUpgradeable, UUPSUpgradeable{
+contract Blacklistable is Initializable, AccessControlUpgradeable {
     // Track whether Blacklisting is enabled
     bool public isBlacklistEnabled;
 
     bytes32 public constant BLACKLISTER_ROLE = keccak256("BLACKLISTER_ROLE");
+    
 
     // The mapping to keep track if an address is blacklisted
     mapping (address => bool) public addressBlacklists;
@@ -23,11 +23,11 @@ contract Blacklistable is Initializable, AccessControlUpgradeable, UUPSUpgradeab
     event BlacklistEnabledUpdated(address indexed updatedBy, bool indexed enabled);
 
     function __Blacklistable_Init ()initializer public {
-        __AccessControl_init();
-        __UUPSUpgradeable_init();
-        
+        __AccessControl_init();        
+
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(BLACKLISTER_ROLE, msg.sender);
+        
     }
 
     function _setBlacklistEnabled(bool enabled) internal {
@@ -103,5 +103,6 @@ contract Blacklistable is Initializable, AccessControlUpgradeable, UUPSUpgradeab
      */
     function removeFromBlacklist(address addressToRemove) public onlyRole(BLACKLISTER_ROLE) {
         _removeFromBlacklist(addressToRemove);
-    }
+    }  
+   
 }
