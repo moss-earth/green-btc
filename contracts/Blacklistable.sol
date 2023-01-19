@@ -22,7 +22,7 @@ contract Blacklistable is Initializable, AccessControlUpgradeable {
     event AddressRemovedFromBlacklist(address indexed removedAddress, address indexed removedBy);    
     event BlacklistEnabledUpdated(address indexed updatedBy, bool indexed enabled);
 
-    function __Blacklistable_Init ()initializer public {
+    function __Blacklistable_Init ()initializer internal{
         __AccessControl_init();        
 
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
