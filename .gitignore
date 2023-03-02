@@ -4,7 +4,6 @@ coverage
 coverage.json
 typechain
 typechain-types
-*/package-lock.json
 
 # Hardhat files
 cache
@@ -34,3 +33,4 @@ typechain-types
 cache
 artifacts
 
+package-lock.json
