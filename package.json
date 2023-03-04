@@ -20,6 +20,7 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
+    "@openzeppelin/contracts": "^4.8.1",
     "@openzeppelin/contracts-upgradeable": "^4.8.0",
     "@openzeppelin/hardhat-upgrades": "^1.22.1",
     "code": "^5.2.4"

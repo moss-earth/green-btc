@@ -26,8 +26,7 @@ contract Blacklistable is Initializable, AccessControlUpgradeable {
         __AccessControl_init();        
 
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
-        _grantRole(BLACKLISTER_ROLE, msg.sender);
-        
+        _grantRole(BLACKLISTER_ROLE, msg.sender);        
     }
 
     function _setBlacklistEnabled(bool enabled) internal {

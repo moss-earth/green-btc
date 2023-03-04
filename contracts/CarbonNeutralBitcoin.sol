@@ -48,7 +48,7 @@ contract CarbonNeutralBitcoin is Initializable, ERC20Upgradeable, ERC20BurnableU
     * @param _MCO2 address of the carbon offset token
     * @param _carbonOffsetMultiplier carbon offset multiplier
     */
-    function initialize( address _WBTC , address _MCO2, uint256 _carbonOffsetMultiplier,uint256 _decimals) initializer public {
+    function initialize( address _WBTC , address _MCO2, uint256 _carbonOffsetMultiplier, uint256 _decimals ) initializer public {
         __ERC20_init("Carbon Neutral Bitcoin", "eBTC");
         __ERC20Burnable_init();
         __Pausable_init();
@@ -147,7 +147,7 @@ contract CarbonNeutralBitcoin is Initializable, ERC20Upgradeable, ERC20BurnableU
     Evaluates whether a transfer should be allowed or not.
      */
     modifier notRestricted (address from, address to, uint256 value) {
-        require(!checkBlacklistAllowed(from, to), "Carbon Neutral Bitcoin: Adresss restrictred");
+        require(checkBlacklistAllowed(from, to), "Carbon Neutral Bitcoin: Address restricted");
         _;
     }
 
